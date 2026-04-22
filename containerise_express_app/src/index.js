@@ -8,7 +8,7 @@ const users = [];
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send(`Hello, World! ${process.env.APP_NAME}`);
 });
 app.get('/users', (req, res) => {
     res.json(users);

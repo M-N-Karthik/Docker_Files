@@ -3,6 +3,5 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci 
 COPY index.js index.js
-EXPOSE 5000
-ENV PORT=5000
+EXPOSE 9000
 CMD ["node", "index.js"]    
