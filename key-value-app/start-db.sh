@@ -1,0 +1,11 @@
+CONTAINER_NAME=mongodb
+CONTAINER_IMAGE=mongodb/mongodb-community-server
+CONTAINER_TAG=7.0-ubuntu2204
+ROOT_USER="root-user"
+ROOT_PASSWORD="root-password"
+
+
+docker run -d --name ${CONTAINER_NAME} \
+    -e MONGO_INITDB_ROOT_USERNAME=${ROOT_USER} \
+    -e MONGO_INITDB_ROOT_PASSWORD=${ROOT_PASSWORD} \
+    ${CONTAINER_IMAGE}:${CONTAINER_TAG}
