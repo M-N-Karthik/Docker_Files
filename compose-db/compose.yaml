@@ -1,0 +1,41 @@
+services:
+  backend:
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.db-key-value
+    environment:
+      - MONGO_DBHOST=db
+      - PORT=3000
+    depends_on:
+      - db
+    networks:
+      - compose-db-network
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/src
+          target: /app/src
+  db:
+    image: mongodb/mongodb-community-server:7.0-ubuntu2204
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env.db-key-value
+      - .env.db-root-cred
+    volumes:
+      - type: bind
+        source: ./db-config/mongoinit.js
+        target: /docker-entrypoint-initdb.d/mongoinit.js
+        read_only: true
+      - mongo-db:/data/db
+    networks:
+      - compose-db-network
+
+volumes:
+  mongo-db:
+networks:
+  compose-db-network:
